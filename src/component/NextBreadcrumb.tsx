@@ -27,7 +27,7 @@ const NextBreadcrumb = ({homeElement, separator, separatorClasses, containerClas
                     let href = `/${pathNames.slice(0, index + 1).join('/')}`
                     return (
                         <>
-                            <li key={index} className={`${listClasses}`}>
+                            <li key={index} className={listClasses} >
                                 {
                                     <Link href={href}>{link}</Link>
                                 }
