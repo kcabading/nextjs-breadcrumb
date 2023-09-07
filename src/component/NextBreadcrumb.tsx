@@ -28,9 +28,7 @@ const NextBreadcrumb = ({homeElement, separator, separatorClasses, containerClas
                     return (
                         <>
                             <li key={index} className={listClasses} >
-                                {
-                                    <Link href={href}>{link}</Link>
-                                }
+                                <Link href={href}>{link}</Link>
                             </li>
                             {pathNames.length !== index + 1 && <span className={separatorClasses}>{separator}</span>}
                         </>
