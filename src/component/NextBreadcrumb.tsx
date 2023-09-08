@@ -7,13 +7,14 @@ import Link from 'next/link'
 
 type TBreadCrumbProps = {
     homeElement: ReactNode,
-    separator: string,
-    separatorClasses?: string,
+    separator: ReactNode,
     containerClasses?: string,
-    listClasses?: string
+    listClasses?: string,
+    activeClasses?: string,
+    capitalizeLinks?: boolean
 }
 
-const NextBreadcrumb = ({homeElement, separator, separatorClasses, containerClasses, listClasses}: TBreadCrumbProps) => {
+const NextBreadcrumb = ({homeElement, separator, containerClasses, listClasses, activeClasses, capitalizeLinks}: TBreadCrumbProps) => {
 
     const paths = usePathname()
     const pathNames = paths.split('/').filter( path => path )
@@ -21,17 +22,20 @@ const NextBreadcrumb = ({homeElement, separator, separatorClasses, containerClas
     return (
         <div>
             <ul className={containerClasses}>
-                <li><Link href={'/'} className={listClasses}>{homeElement}</Link></li><span className={separatorClasses}>{separator}</span>
+                <li className={listClasses}><Link href={'/'}>{homeElement}</Link></li>
+                {pathNames.length > 0 && separator}
             {
                 pathNames.map( (link, index) => {
                     let href = `/${pathNames.slice(0, index + 1).join('/')}`
+                    let itemClasses = paths === href ? `${listClasses} ${activeClasses}` : listClasses
+                    let itemLink = capitalizeLinks ? link[0].toUpperCase() + link.slice(1, link.length) : link
                     return (
-                        <>
-                            <li key={index} className={listClasses} >
-                                <Link href={href}>{link}</Link>
+                        <React.Fragment key={index}>
+                            <li className={itemClasses} >
+                                <Link href={href}>{itemLink}</Link>
                             </li>
-                            {pathNames.length !== index + 1 && <span className={separatorClasses}>{separator}</span>}
-                        </>
+                            {pathNames.length !== index + 1 && separator}
+                        </React.Fragment>
                     )
                 })
             }

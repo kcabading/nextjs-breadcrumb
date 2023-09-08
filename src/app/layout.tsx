@@ -21,10 +21,11 @@ export default function RootLayout({
       <body className={inter.className}>
         <NextBreadcrumb
           homeElement={'Home'}
-          separator='/'
-          separatorClasses='mx-2'
-          containerClasses='flex'
-          listClasses='hover:underline'
+          separator={<span> | </span>}
+          activeClasses='text-amber-500'
+          containerClasses='flex py-5 bg-gradient-to-r from-purple-600 to-blue-600' 
+          listClasses='hover:underline mx-2 font-bold'
+          capitalizeLinks
         />
         {children}
       </body>
